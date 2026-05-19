@@ -1,0 +1,34 @@
+# Build / OS
+.DS_Store
+*.log
+*.swp
+
+# Dart / Flutter
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+.pub-cache/
+.pub/
+**/doc/api/
+**/coverage/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Generated platform folders (created by CI via `flutter create`)
+android/
+ios/
+linux/
+web/
+macos/
+windows/
+
+# Generated localization sources
+lib/l10n/generated/
+
+readme.md
