@@ -5,14 +5,8 @@ import 'package:bus_booking_pro/features/bookings/bookings_state.dart';
 import '../helpers/test_storage.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
-  tearDown(() async {
-    await TestStorage.tearDown();
-  });
-
   test('add prepends bookings and assigns seats', () async {
-    final storage = await TestStorage.create();
+    final storage = createTestStorage();
     final ctrl = BookingsController(storage);
 
     final first = await ctrl.add(
@@ -33,7 +27,7 @@ void main() {
   });
 
   test('remove deletes a booking', () async {
-    final storage = await TestStorage.create();
+    final storage = createTestStorage();
     final ctrl = BookingsController(storage);
 
     final b = await ctrl.add(

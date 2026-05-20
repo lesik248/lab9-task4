@@ -42,6 +42,9 @@ jobs:
             --org=${{ env.APP_ORG }} \
             .
           cp /tmp/pubspec.yaml.bak pubspec.yaml
+          # Default Flutter template adds test/widget_test.dart referencing
+          # MyApp — delete it; our tests live under test/unit & test/widget.
+          rm -f test/widget_test.dart
 
       - name: Install dependencies
         run: flutter pub get
@@ -78,6 +81,9 @@ jobs:
             --org=${{ env.APP_ORG }} \
             .
           cp /tmp/pubspec.yaml.bak pubspec.yaml
+          # Default Flutter template adds test/widget_test.dart referencing
+          # MyApp — delete it; our tests live under test/unit & test/widget.
+          rm -f test/widget_test.dart
 
       - run: flutter config --enable-linux-desktop
       - run: flutter pub get
@@ -115,6 +121,9 @@ jobs:
             --org=${{ env.APP_ORG }} \
             .
           cp /tmp/pubspec.yaml.bak pubspec.yaml
+          # Default Flutter template adds test/widget_test.dart referencing
+          # MyApp — delete it; our tests live under test/unit & test/widget.
+          rm -f test/widget_test.dart
 
       - run: flutter pub get
       - run: flutter build apk --debug
@@ -152,6 +161,9 @@ jobs:
             --org=${{ env.APP_ORG }} \
             .
           cp /tmp/pubspec.yaml.bak pubspec.yaml
+          # Default Flutter template adds test/widget_test.dart referencing
+          # MyApp — delete it; our tests live under test/unit & test/widget.
+          rm -f test/widget_test.dart
 
       - run: flutter config --enable-linux-desktop
       - run: flutter pub get
@@ -188,6 +200,9 @@ jobs:
             --org=${{ env.APP_ORG }} \
             .
           cp /tmp/pubspec.yaml.bak pubspec.yaml
+          # Default Flutter template adds test/widget_test.dart referencing
+          # MyApp — delete it; our tests live under test/unit & test/widget.
+          rm -f test/widget_test.dart
 
       - run: flutter pub get
       - run: flutter build web --release --base-href "${{ env.PAGES_BASE_HREF }}"
@@ -239,6 +254,9 @@ jobs:
             --org=${{ env.APP_ORG }} \
             .
           cp /tmp/pubspec.yaml.bak pubspec.yaml
+          # Default Flutter template adds test/widget_test.dart referencing
+          # MyApp — delete it; our tests live under test/unit & test/widget.
+          rm -f test/widget_test.dart
 
       - run: flutter pub get
 

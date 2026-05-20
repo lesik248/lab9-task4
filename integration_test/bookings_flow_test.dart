@@ -6,18 +6,13 @@ import 'package:integration_test/integration_test.dart';
 import 'package:bus_booking_pro/app.dart';
 import 'package:bus_booking_pro/features/app_providers.dart';
 import 'package:bus_booking_pro/models/city.dart';
-
-import '../test/helpers/test_storage.dart';
+import 'package:bus_booking_pro/services/storage_service.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  tearDown(() async {
-    await TestStorage.tearDown();
-  });
-
   testWidgets('creates a booking and removes it', (tester) async {
-    final storage = await TestStorage.create();
+    final storage = StorageService.memory();
     await storage.session().put('email', 'demo@buses.by');
     await storage.cities().put('list', [
       const City(id: 'grodno', name: 'Grodno', lat: 53.7, lon: 23.8).toJson(),

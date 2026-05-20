@@ -8,14 +8,8 @@ import '../helpers/test_app.dart';
 import '../helpers/test_storage.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
-  tearDown(() async {
-    await TestStorage.tearDown();
-  });
-
   testWidgets('toggles light theme and persists', (tester) async {
-    final storage = await TestStorage.create();
+    final storage = createTestStorage();
     await tester.pumpWidget(
       wrapWidgetUnderTest(child: const SettingsPage(), storage: storage),
     );
@@ -23,12 +17,13 @@ void main() {
 
     await tester.tap(find.text('Light'));
     await tester.pump();
+    await tester.pump(const Duration(milliseconds: 50));
 
     expect(storage.settings().get('themeMode'), 'light');
   });
 
   testWidgets('changes language to Russian', (tester) async {
-    final storage = await TestStorage.create();
+    final storage = createTestStorage();
     await tester.pumpWidget(
       wrapWidgetUnderTest(child: const SettingsPage(), storage: storage),
     );
@@ -36,13 +31,13 @@ void main() {
 
     await tester.tap(find.byKey(const Key('lang_chip_ru')));
     await tester.pump();
+    await tester.pump(const Duration(milliseconds: 50));
 
     expect(storage.settings().get('lang'), 'ru');
   });
 
-  testWidgets('controller reads initial values from storage',
-      (tester) async {
-    final storage = await TestStorage.create();
+  test('controller reads initial values from storage', () async {
+    final storage = createTestStorage();
     await storage.settings().put('themeMode', 'dark');
     await storage.settings().put('lang', 'be');
 

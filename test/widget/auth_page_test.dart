@@ -7,15 +7,9 @@ import '../helpers/test_app.dart';
 import '../helpers/test_storage.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
-  tearDown(() async {
-    await TestStorage.tearDown();
-  });
-
   testWidgets('renders the email + password form and submit button',
       (tester) async {
-    final storage = await TestStorage.create();
+    final storage = createTestStorage();
     await tester.pumpWidget(
       wrapWidgetUnderTest(child: const AuthPage(), storage: storage),
     );
@@ -28,13 +22,12 @@ void main() {
   });
 
   testWidgets('shows an error when credentials are bad', (tester) async {
-    final storage = await TestStorage.create();
+    final storage = createTestStorage();
     await tester.pumpWidget(
       wrapWidgetUnderTest(child: const AuthPage(), storage: storage),
     );
     await tester.pump(const Duration(milliseconds: 50));
 
-    // Replace the demo email with one that fails validation.
     await tester.enterText(
         find.byKey(const Key('auth_email_field')), 'bad-email');
     await tester.enterText(

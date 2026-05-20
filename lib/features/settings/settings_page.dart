@@ -1,35 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../app_providers.dart';
 import '../auth/auth_state.dart';
 import 'settings_state.dart';
 
-class SettingsPage extends ConsumerStatefulWidget {
+class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
-  @override
-  ConsumerState<SettingsPage> createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends ConsumerState<SettingsPage> {
-  String _version = '—';
+  static const String _appVersion = '1.0.0+1';
 
   @override
-  void initState() {
-    super.initState();
-    PackageInfo.fromPlatform().then((info) {
-      if (mounted) setState(() => _version = '${info.version}+${info.buildNumber}');
-    }).catchError((e) {
-      // ignore: avoid_print
-      print('PackageInfo error: $e');
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l = AppL10n.of(context);
     final settings = ref.watch(settingsProvider);
     final controller = ref.read(settingsProvider.notifier);
@@ -94,7 +77,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             },
           ),
           const SizedBox(height: 16),
-          Text(l.t('settings_version', args: {'v': _version})),
+          Text(l.t('settings_version', args: {'v': _appVersion})),
           const SizedBox(height: 24),
           FilledButton.tonalIcon(
             key: const Key('settings_signout_button'),
