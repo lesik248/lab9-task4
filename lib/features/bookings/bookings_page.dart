@@ -139,24 +139,32 @@ class BookingsPage extends ConsumerWidget {
               FilledButton(
                 key: const Key('booking_save_button'),
                 onPressed: () async {
+                  final fromArg = fromCity;
+                  final toArg = toCity;
+                  final dateArg = date;
+                  Navigator.of(ctx).pop();
                   final created =
                       await ref.read(bookingsProvider.notifier).add(
-                            fromCityId: fromCity.id,
-                            toCityId: toCity.id,
-                            date: date,
+                            fromCityId: fromArg.id,
+                            toCityId: toArg.id,
+                            date: dateArg,
                           );
-                  if (!ctx.mounted) return;
-                  Navigator.of(ctx).pop();
-                  await NotificationService.instance.notify(
-                    context: context,
-                    title: l.t('notification_booked'),
-                    body: l.t('notification_booked_body', args: {
-                      'from': fromCity.name,
-                      'to': toCity.name,
-                      'date':
-                          DateFormat('yyyy-MM-dd').format(created.date),
-                    }),
-                  );
+                  if (!context.mounted) return;
+                  try {
+                    await NotificationService.instance.notify(
+                      context: context,
+                      title: l.t('notification_booked'),
+                      body: l.t('notification_booked_body', args: {
+                        'from': fromArg.name,
+                        'to': toArg.name,
+                        'date':
+                            DateFormat('yyyy-MM-dd').format(created.date),
+                      }),
+                    );
+                  } catch (_) {
+                    // Best-effort UX — surfacing failures here would only
+                    // confuse the user; the booking itself is already saved.
+                  }
                 },
                 child: Text(l.t('bookings_save')),
               ),

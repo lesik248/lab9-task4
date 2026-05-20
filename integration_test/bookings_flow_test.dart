@@ -35,11 +35,17 @@ void main() {
     await tester.tap(find.byKey(const Key('home_card_/bookings')));
     await tester.pumpAndSettle(const Duration(seconds: 1));
 
+    expect(find.byKey(const Key('booking_new_fab')), findsOneWidget,
+        reason: 'Bookings page must render its FAB before continuing');
+
     await tester.tap(find.byKey(const Key('booking_new_fab')));
-    await tester.pumpAndSettle();
+    await tester.pumpAndSettle(const Duration(seconds: 1));
+
+    expect(find.byKey(const Key('booking_save_button')), findsOneWidget,
+        reason: 'New-booking dialog must be open before tapping save');
 
     await tester.tap(find.byKey(const Key('booking_save_button')));
-    await tester.pumpAndSettle(const Duration(milliseconds: 500));
+    await tester.pumpAndSettle(const Duration(seconds: 1));
 
     expect(find.textContaining('Grodno'), findsWidgets);
     expect(find.textContaining('Lida'), findsWidgets);
