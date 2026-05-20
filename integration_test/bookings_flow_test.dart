@@ -13,6 +13,7 @@ void main() {
 
   testWidgets('creates a booking and removes it', (tester) async {
     final storage = StorageService.memory();
+    await storage.settings().put('lang', 'en');
     await storage.session().put('email', 'demo@buses.by');
     await storage.cities().put('list', [
       const City(id: 'grodno', name: 'Grodno', lat: 53.7, lon: 23.8).toJson(),

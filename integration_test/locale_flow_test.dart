@@ -12,6 +12,7 @@ void main() {
 
   testWidgets('switches UI language to Belarusian', (tester) async {
     final storage = StorageService.memory();
+    await storage.settings().put('lang', 'en');
     await storage.session().put('email', 'demo@buses.by');
 
     await tester.pumpWidget(

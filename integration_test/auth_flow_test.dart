@@ -10,6 +10,7 @@ import 'package:bus_booking_pro/services/storage_service.dart';
 
 Future<StorageService> _bootstrap({bool signedIn = false}) async {
   final storage = StorageService.memory();
+  await storage.settings().put('lang', 'en');
   if (signedIn) {
     await storage.session().put('email', 'demo@buses.by');
   }
