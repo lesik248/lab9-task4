@@ -32,8 +32,8 @@ void main() {
     );
     await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    await tester.tap(find.text('Cities').first);
-    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('home_card_/cities')));
+    await tester.pumpAndSettle(const Duration(seconds: 1));
 
     await tester.tap(find.byKey(const Key('cities_add_button')));
     await tester.pumpAndSettle();

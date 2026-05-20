@@ -118,7 +118,11 @@ class _MobileLayout extends StatelessWidget {
         onDestinationSelected: (i) => context.go(destinations[i].route),
         destinations: [
           for (final d in destinations)
-            NavigationDestination(icon: Icon(d.icon), label: d.label),
+            NavigationDestination(
+              key: Key('nav_${d.route}'),
+              icon: Icon(d.icon),
+              label: d.label,
+            ),
         ],
       ),
     );

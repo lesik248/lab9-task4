@@ -57,9 +57,10 @@ void main() {
     );
     await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    await tester.tap(find.text('Settings').first);
-    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('home_card_/settings')));
+    await tester.pumpAndSettle(const Duration(seconds: 1));
 
+    expect(find.byKey(const Key('settings_signout_button')), findsOneWidget);
     await tester.tap(find.byKey(const Key('settings_signout_button')));
     await tester.pumpAndSettle(const Duration(seconds: 1));
 

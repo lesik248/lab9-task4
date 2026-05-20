@@ -32,8 +32,8 @@ void main() {
     );
     await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    await tester.tap(find.text('Bookings').first);
-    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('home_card_/bookings')));
+    await tester.pumpAndSettle(const Duration(seconds: 1));
 
     await tester.tap(find.byKey(const Key('booking_new_fab')));
     await tester.pumpAndSettle();
