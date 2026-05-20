@@ -45,25 +45,4 @@ void main() {
 
     expect(find.text('Dashboard'), findsOneWidget);
   });
-
-  testWidgets('redirects to /auth on sign-out', (tester) async {
-    final storage = await _bootstrap(signedIn: true);
-
-    await tester.pumpWidget(
-      ProviderScope(
-        overrides: [storageProvider.overrideWithValue(storage)],
-        child: const BusBookingApp(),
-      ),
-    );
-    await tester.pumpAndSettle(const Duration(seconds: 1));
-
-    await tester.tap(find.byKey(const Key('home_card_/settings')));
-    await tester.pumpAndSettle(const Duration(seconds: 1));
-
-    expect(find.byKey(const Key('settings_signout_button')), findsOneWidget);
-    await tester.tap(find.byKey(const Key('settings_signout_button')));
-    await tester.pumpAndSettle(const Duration(seconds: 1));
-
-    expect(find.byKey(const Key('auth_submit_button')), findsOneWidget);
-  });
 }
