@@ -45,15 +45,11 @@ class AdaptiveShell extends StatelessWidget {
         GoRouter.of(context).routerDelegate.currentConfiguration.uri.toString();
     final selected = _indexOfLocation(location);
 
-    final body = AnimatedSwitcher(
-      duration: const Duration(milliseconds: 200),
-      transitionBuilder: (child, anim) =>
-          FadeTransition(opacity: anim, child: child),
-      child: KeyedSubtree(
-        key: ValueKey<String>(location),
-        child: child,
-      ),
-    );
+    // Pass the ShellRoute child through directly. Wrapping it in an
+    // AnimatedSwitcher (which keeps the previous subtree mounted during the
+    // fade) duplicated the inner Navigator's GlobalObjectKey on every route
+    // change and tripped a "Duplicate GlobalKey" assertion on real devices.
+    final body = child;
 
     return Shortcuts(
       shortcuts: <ShortcutActivator, Intent>{
